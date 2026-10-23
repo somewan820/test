@@ -30,3 +30,15 @@ test('keeps the original stock object unchanged', () => {
 test('throws if the requested stock is unavailable', () => {
   assert.throws(() => reserve(item, 6), /Insufficient stock/);
 });
+
+test('rejects invalid available stock values', () => {
+  for (const available of [1.5, -1, NaN, Infinity]) {
+    assert.equal(canReserve({ ...item, available }, 1), false, `available=${available}`);
+  }
+});
+
+test('throws when available stock is invalid', () => {
+  for (const available of [1.5, -1, NaN, Infinity]) {
+    assert.throws(() => reserve({ ...item, available }, 1), /Insufficient stock/);
+  }
+});

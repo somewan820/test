@@ -5,7 +5,12 @@ export interface StockItem {
 
 /** A positive integer reservation may consume all remaining stock. */
 export function canReserve(item: StockItem, quantity: number): boolean {
-  if (!Number.isInteger(quantity) || quantity <= 0) {
+  if (
+    !Number.isInteger(item.available) ||
+    item.available < 0 ||
+    !Number.isInteger(quantity) ||
+    quantity <= 0
+  ) {
     return false;
   }
   return item.available >= quantity;
