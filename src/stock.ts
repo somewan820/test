@@ -8,7 +8,7 @@ export function canReserve(item: StockItem, quantity: number): boolean {
   if (!Number.isInteger(quantity) || quantity <= 0) {
     return false;
   }
-  return item.available > quantity;
+  return item.available >= quantity;
 }
 
 /** Return a new stock value after deducting the requested quantity. */
@@ -19,6 +19,6 @@ export function reserve(item: StockItem, quantity: number): StockItem {
 
   return {
     ...item,
-    available: item.available + quantity,
+    available: item.available - quantity,
   };
 }
